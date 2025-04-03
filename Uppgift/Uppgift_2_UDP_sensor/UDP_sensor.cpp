@@ -41,7 +41,7 @@ int main() {
    // TODO: Fill in server information (IP, Port)
    server_addr.sin_family = AF_INET;
    server_addr.sin_port = htons(5000);
-   server_addr.sin_addr.s_addr= inet_addr("172.16.217.216");
+   server_addr.sin_addr.s_addr= inet_addr("172.0.0.2");
 
    while (true) {
        // TODO: Create message
@@ -50,7 +50,7 @@ int main() {
        std::cout << "Sending: " << message << std::endl;
        sendto(sockfd, message, strlen(message), 0, (struct sockaddr*)&server_addr, sizeof(server_addr));
        // TODO: Sleep for 1 second
-       Sleep(1000);
+       Sleep(10000);
    }
    // TODO: Close socket
    closesocket(sockfd);
