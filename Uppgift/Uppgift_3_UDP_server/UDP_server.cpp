@@ -34,14 +34,14 @@ int main() {
    socklen_t addr_len = sizeof(client_addr);
    // TODO: Create UDP socket
    sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-   if(sockfd = -1){
-    perror("Socket creation failed");
+   if(sockfd == -1){
+    perror("Socket creation ailed");
     return 1;
    }
    // TODO: Bind to a port
    server_addr.sin_family = AF_INET;
-   server_addr.sin_addr.s_addr = "127.0.0.2";
-   server_addr.sin_port = htons(5000);
+   server_addr.sin_addr.s_addr = inet_addr("127.0.0.2");
+   server_addr.sin_port = htons(5001);
 
    if(bind(sockfd, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0){
     perror("bind failed");
@@ -50,16 +50,17 @@ int main() {
    }
    std::cout << "Listening to port: " << server_addr.sin_port << std::endl; //kanske ändra sinport till string nummber
    while (true) {
-       char buffer[1024];
-       memset(buffer, 0, sizeof(buffer));
-       // TODO: Receive message from client
-       int n = recvfrom(sockfd, buffer, sizeof(buffer), 0 ,(struct sockaddr*)&client_addr, &addr_len);
-
-       // TODO: Print received message
-       if (n > 0 ){
-        //    char client_ip[INET_ADDRSTRLEN];
-        //    inet_ntoa(AF_I);
-           std::cout << buffer << std::endl; // ändra?
+     char buffer[1024];
+     memset(buffer, 0, sizeof(buffer));
+     // TODO: Receive message from client
+     int n = recvfrom(sockfd, buffer, sizeof(buffer), 0 ,(struct sockaddr*)&client_addr, &addr_len);
+     
+     // TODO: Print received message
+     if (n > 0 ){
+          // char client_ip[INET_ADDRSTRLEN];
+          // inet_ntop(AF_INET, client_ip, buffer, sizeof(buffer));
+       std::cout << buffer << std::endl; // ändra?
+       std::cout << "Listening to port: " << server_addr.sin_port << std::endl; //kanske ändra sinport till string nummber
        }
        // TODO (Optional): Send acknowledgment
    }
